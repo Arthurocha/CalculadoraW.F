@@ -225,28 +225,67 @@ namespace CalculadoraRosen
 
         private void btnIgual_Click(object sender, EventArgs e)
         {
-            switch (OperacaoSelecionada)
+            decimal zero = 0;
+            if (zero == Convert.ToDecimal(valores))
             {
-                case Operacao.Div:
-                    Resultado = Valor / Convert.ToDecimal(valores);
-                    break;
+                switch (OperacaoSelecionada)
+                {
+                    case Operacao.Div:
+                        break;
 
-                case Operacao.Mult:
-                    Resultado = Valor * Convert.ToDecimal(valores);
-                    break;
 
-                case Operacao.Soma:
-                    Resultado = Valor + Convert.ToDecimal(valores);
-                    break;
+                    case Operacao.Mult:
+                        Resultado = Valor * Convert.ToDecimal(valores);
+                        valores = Convert.ToString(Resultado);
+                        txtHistorico.Text = Convert.ToString(Resultado);
+                        sinais = "";
+                        break;
 
-                case Operacao.Sub:
-                    Resultado = Valor - Convert.ToDecimal(valores);
-                    break;
+                    case Operacao.Soma:
+                        Resultado = Valor + Convert.ToDecimal(valores);
+                        valores = Convert.ToString(Resultado);
+                        txtHistorico.Text = Convert.ToString(Resultado);
+                        sinais = "";
+                        break;
 
+                    case Operacao.Sub:
+                        Resultado = Valor - Convert.ToDecimal(valores);
+                        valores = Convert.ToString(Resultado);
+                        txtHistorico.Text = Convert.ToString(Resultado);
+                        sinais = "";
+                        break;
+
+                }
             }
-            valores = Convert.ToString(Resultado);
-            txtHistorico.Text = Convert.ToString(Resultado);
-            sinais = "";
+
+            else
+            {
+                switch (OperacaoSelecionada)
+                {
+                    case Operacao.Div:
+                        Resultado = Valor / Convert.ToDecimal(valores);
+                        break;
+
+
+                    case Operacao.Mult:
+                        Resultado = Valor * Convert.ToDecimal(valores);
+                        break;
+
+                    case Operacao.Soma:
+                        Resultado = Valor + Convert.ToDecimal(valores);
+                        break;
+
+                    case Operacao.Sub:
+                        Resultado = Valor - Convert.ToDecimal(valores);
+                        break;
+
+                }
+                valores = Convert.ToString(Resultado);
+                txtHistorico.Text = Convert.ToString(Resultado);
+                sinais = "";
+            }
+
+            
 
         }
 
@@ -315,8 +354,14 @@ namespace CalculadoraRosen
             {
                 if (!string.IsNullOrEmpty(valores))
                 {
-                    int num = Convert.ToInt32(valores);
+                    int num;
+                    if (!int.TryParse(valores, out num))
+                    {
+                        num = 0;
+                    }
+                    
                     Resultado = 1;
+
                     for (int i = num; i > 1; i--)
                     {
                         Resultado *= i;
@@ -344,7 +389,7 @@ namespace CalculadoraRosen
                 if (!string.IsNullOrEmpty(valores))
                 {
                     double graus = Convert.ToDouble(valores);
-                    double radianos = graus * (Math.PI / 180); // Converte para radianos
+                    double radianos = graus * (Math.PI / 180);
                     Resultado = Convert.ToDecimal(Math.Sin(radianos));
 
                     valores = Convert.ToString(Resultado);
@@ -369,7 +414,7 @@ namespace CalculadoraRosen
                 if (!string.IsNullOrEmpty(valores))
                 {
                     double graus = Convert.ToDouble(valores);
-                    double radianos = graus * (Math.PI / 180); // Converte para radianos
+                    double radianos = graus * (Math.PI / 180);
                     Resultado = Convert.ToDecimal(Math.Cos(radianos));
 
                     valores = Convert.ToString(Resultado);
@@ -394,7 +439,7 @@ namespace CalculadoraRosen
                 if (!string.IsNullOrEmpty(valores))
                 {
                     double graus = Convert.ToDouble(valores);
-                    double radianos = graus * (Math.PI / 180); // Converte para radianos
+                    double radianos = graus * (Math.PI / 180);
                     Resultado = Convert.ToDecimal(Math.Tan(radianos));
 
                     valores = Convert.ToString(Resultado);
